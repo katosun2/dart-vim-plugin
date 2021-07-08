@@ -101,10 +101,10 @@ function! dart#resolveUri(uri) abort
     call s:error('no package mapping for '.package_name)
     return a:uri
   endif
-  let package_lib = package_map[package_name]
+  let package_lib = substitute(package_map[package_name], '%25\(\d\+\)', '%\1', 'g')
   return substitute(a:uri,
       \ 'package:'.package_name,
-      \ escape(package_map[package_name], '\'),
+      \ escape(package_lib, '\'),
       \ '')
 endfunction
 
